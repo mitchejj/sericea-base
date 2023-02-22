@@ -15,7 +15,7 @@ on:
       - '**.md'
       - '**.txt'
 env:
-    IMAGE_NAME: base
+    IMAGE_NAME: sericea-base
     IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
 
 jobs:
@@ -29,11 +29,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        major_version: [37, 38]
+        major_version: [38]
         include:
-          - major_version: 37
+          - major_version: 38
             is_latest: true
-            is_stable: true
+            is_stable: false
     steps: 
       # Checkout push-to-registry action GitHub repository
       - name: Checkout Push to Registry action
