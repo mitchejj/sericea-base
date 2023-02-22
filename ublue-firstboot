@@ -127,6 +127,14 @@ if [ "$?" != 0 ] ; then
 fi
 echo "100"
 
+
+echo "# Enabling flatpak Auto Update"
+/usr/bin/systemctl --user enable --now flatpak-automatic.timer
+
+mkdir -p "$HOME"/.config/ublue/
+touch "$HOME"/.config/ublue/firstboot-done
+cp -n /etc/justfile "$HOME"/.justfile
+
 echo "# Reticulating Final Splines"
 mkdir -p "$HOME"/.config/ublue/
 touch "$HOME"/.config/ublue/firstboot-done
