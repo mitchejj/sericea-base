@@ -1,30 +1,22 @@
 # base
 
-[![build-ublue](https://github.com/ublue-os/base/actions/workflows/build.yml/badge.svg)](https://github.com/ublue-os/base/actions/workflows/build.yml)
+[![build-ublue](https://github.com/mitchejj/sericea-base/actions/workflows/build.yml/badge.svg)](https://github.com/mitchejj/sericea-base/actions/workflows/build.yml)
 
-A base image with a (mostly) stock Fedora Silverblue. Help us make a sweet base image: Pull requests and improvements appreciated and encouraged! Scroll to the bottom to see how to make your own!
+A base image with a (mostly) stock Fedora Sericea. This build is using
+pre-released builds. This is **NOT** a Fedora build. This is **NOT** a ublue-os build. 
 
 ## What is this?
 
-This is a base Fedora Silverblue image designed to be customized to whatever you want, have GitHub build it for you, and then host it for you. You then just tell your computer to boot off of that image. GitHub keeps 90 days worth image backups for you, thanks Microsoft! 
-
-Check out the [spec for Fedora](https://fedoraproject.org/wiki/Changes/OstreeNativeContainerStable) for more information and proper explanation.
-
-Check out our [organization page](https://github.com/ublue-os) for images with MATE, XFCE, and an Ubuntu-like flavor. Or go right to the [Nvidia image](https://github.com/ublue-os/nvidia), your pathway to a more reliable experience. Some of these are examples that build off of this base image, so build whatever you'd like!
-
-These github actions and methods are meant to be shared and improved upon, [so come on in](https://github.com/orgs/ublue-os/discussions) and help out!
+This is a base Fedora Sericea (still in development & pre-beta) image derived from [ublue-os](http://ublue.it) base image/build system.
 
 ## Usage
 
 Warning: This is an experimental feature and should not be used in production (yet), however it's pretty close) Depending on the version of rpm-ostree on your system you might need to pass an additional `--experimental` flag
 
-To rebase an existing Silverblue/Kinoite machine to the latest release (37): 
+To rebase an existing Silverblue/Kinoite machine to the latest build (38): 
 
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/base:37
+    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/mitchejj/sericea-base:38
     
-We build date tags as well, so if you want to rebase to a particular day's release:
-  
-    sudo rpm-ostree rebase ostree-unverified-registry:ghcr.io/ublue-os/base:20221217 
 
 The `latest` tag will automatically point to the latest build. Note that when a new version of Fedora is released that the `latest` tag will get updated to that latest release automatically. 
 
@@ -33,22 +25,21 @@ The `latest` tag will automatically point to the latest build. Note that when a 
 - Start with a base Fedora Silverblue 37 image
 - Removes Firefox from the base image
 - Adds the following packages to the base image:
-  - distrobox and gnome-tweaks
+  - distrobox 
 - Sets automatic staging of updates for the system
 - Sets flatpaks to update twice a day
 - Everything else (desktop, artwork, etc) remains stock so you can use this as a good starting image
 
 ## Applications
 
-- All applications installed per user instead of system wide, similar to openSUSE MicroOS, they are not on the base image. Thanks for the inspiration Team Green!
-- Mozilla Firefox, Mozilla Thunderbird, Extension Manager, Libreoffice, DejaDup, FontDownloader, Flatseal, and the Celluloid Media Player
+### TO-DO
 - Core GNOME Applications installed from Flathub
   - GNOME Calculator, Calendar, Characters, Connections, Contacts, Evince, Firmware, Logs, Maps, NautilusPreviewer, TextEditor, Weather, baobab, clocks, eog, and font-viewer
 
 ## Further Customization
 
 The `just` task runner is included for further customization after first boot.
-It will copy the template from `/etc/justfile` to your home directory.
+TODO: It will copy the template from `/etc/justfile` to your home directory.
 After that run the following commands:
 
 - `just` - Show all tasks, more will be added in the future
