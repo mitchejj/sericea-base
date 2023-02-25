@@ -7,7 +7,7 @@ on:
       - '**.md'
       - '**.txt'
   schedule:
-    - cron: '20 20 * * *'  # 8:20pm everyday
+    - cron: '20 */9 * * *'  # 9:20am & 9:20pm everyday
   push:
     branches:
       - main
