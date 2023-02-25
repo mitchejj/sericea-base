@@ -1,6 +1,6 @@
 # base
 
-[![build-ublue](https://github.com/mitchejj/sericea-base/actions/workflows/build.yml/badge.svg)](https://github.com/mitchejj/sericea-base/actions/workflows/build.yml)
+[![sericea-base](https://github.com/mitchejj/sericea-base/actions/workflows/build.yml/badge.svg)](https://github.com/mitchejj/sericea-base/actions/workflows/build.yml)
 
 A base image with a (mostly) stock Fedora Sericea. This build is using
 pre-released builds. This is **NOT** a Fedora build. This is **NOT** a ublue-os build. 
