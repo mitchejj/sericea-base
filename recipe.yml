@@ -1,6 +1,5 @@
 rpms:
   - distrobox
-  - gnome-tweaks
   - just
 flatpaks:
   - org.mozilla.firefox
