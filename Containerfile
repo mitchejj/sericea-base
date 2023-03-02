@@ -7,6 +7,7 @@ FROM quay.io/fedora-ostree-desktops/sericea:${FEDORA_MAJOR_VERSION}
 
 COPY --from=ghcr.io/ublue-os/udev-rules:latest /ublue-os-udev-rules /
 COPY etc /etc
+COPY usr /usr
 
 COPY ublue-firstboot /usr/bin
 COPY recipe.yml /etc/ublue-recipe.yml
@@ -24,6 +25,7 @@ RUN rpm-ostree override remove firefox firefox-langpacks && \
 
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
+    systemctl enable flatpak-system-update.timer && \
     rm -rf \
         /tmp/* \
         /var/* && \
