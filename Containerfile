@@ -5,21 +5,30 @@ ARG FEDORA_MAJOR_VERSION=38
 FROM quay.io/fedora-ostree-desktops/sericea:${FEDORA_MAJOR_VERSION}
 # See https://pagure.io/releng/issue/11047 for final location
 
+COPY --from=ghcr.io/ublue-os/udev-rules:latest /ublue-os-udev-rules /
+
 # Add Vanilla First Setup
-RUN wget https://copr.fedorainfracloud.org/coprs/ublue-os/vanilla-first-setup/repo/fedora-$(rpm -E %fedora)/ublue-os-vanilla-first-setup-fedora-$(rpm -E %fedora).repo -O /etc/yum.repos.d/_copr_ublue-os-vanilla-first-setup.repo
 
 COPY etc /etc
 
 COPY ublue-firstboot /usr/bin
+COPY recipe.yml /etc/ublue-recipe.yml
+
+COPY --from=docker.io/mikefarah/yq /usr/bin/yq /usr/bin/yq
 
 RUN rpm-ostree override remove firefox firefox-langpacks && \
-    rpm-ostree install distrobox just  && \
+    echo "-- Installing RPMs defined in recipe.yml --" && \
+    rpm_packages=$(yq '.rpms[]' < /etc/ublue-recipe.yml) && \
+    for pkg in $rpm_packages; do \
+        echo "Installing: ${pkg}" && \
+        rpm-ostree install $pkg; \
+    done && \ 
+    echo "---" && \
+
     sed -i 's/#AutomaticUpdatePolicy.*/AutomaticUpdatePolicy=stage/' /etc/rpm-ostreed.conf && \
     systemctl enable rpm-ostreed-automatic.timer && \
-    systemctl enable flatpak-automatic.timer && \
-    sed -i 's@enabled=1@enabled=0@g' /etc/yum.repos.d/_copr_ublue-os-vanilla-first-setup.repo && \
+    systemctl enable flatpak-system-update.timer && \
     rm -rf \
         /tmp/* \
         /var/* && \
     ostree container commit
-
